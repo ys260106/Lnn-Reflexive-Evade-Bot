@@ -21,7 +21,7 @@ const uint16_t udp_port = 1234;
 
 SemaphoreHandle_t veri_kilidi;
 
-// MPU KALDIRILDI - sapma açısı sabit 0
+
 volatile float gercek_sapma_acisi = 0.0f;
 
 volatile float guncel_m_sol = 0.0f;
@@ -91,9 +91,7 @@ void LazerOkumaGorevi(void * parameter) {
     int servo_yon = 4;
 
     for (;;) {
-        // mpu.update() ve mpu.getAngleZ() KALDIRILDI
-        // gercek_sapma_acisi sabit 0 kalır
-
+        
         servoSag.write(servo_aci);
         servoSol.write(180 - servo_aci);
 
