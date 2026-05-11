@@ -14,9 +14,9 @@ Servo servoSol;
 
 WiFiUDP udp;
 
-const char* ssid = "Xiaomi 15T";
-const char* password = "yusuf2323";
-const char* computer_ip = "10.202.114.18";
+const char* ssid = "WİFİ NAME";
+const char* password = "";
+const char* computer_ip = "İP";
 const uint16_t udp_port = 1234;
 
 SemaphoreHandle_t veri_kilidi;
