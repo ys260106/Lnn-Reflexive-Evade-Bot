@@ -129,7 +129,7 @@ void LazerOkumaGorevi(void * parameter) {
 }
 void TelemetriGonder() {
 
-    // Sadece ekrana yazma yavaş, sistem hızı değişmez
+    // Sadece ekrana yazma yavaş sistem hızı değişmez
     static unsigned long son_yazma = 0;
     bool ekrana_yaz = (millis() - son_yazma >= 500);
     if (ekrana_yaz) son_yazma = millis();
@@ -179,7 +179,7 @@ Serial.print("  [2] Sag-Lidar  : "); Serial.println(beyin->noronlar[2].y, 3);
 Serial.print("  [3] Sol-Motor  : "); Serial.println(beyin->noronlar[3].y, 3);
 Serial.print("  [4] Sag-Motor  : "); Serial.println(beyin->noronlar[4].y, 3);
 Serial.print("  [5] Pusula     : "); Serial.println(beyin->noronlar[5].y, 3);
-// YENİ - ham girdi değerleri
+
 Serial.println("HAM GIRISLER:");
 float n_sol_debug  = fmax(0.0f, (beyin->noronlar[0].y * 2.0f) - 1.0f);
 float n_orta_debug = fmax(0.0f, (beyin->noronlar[1].y * 2.0f) - 1.0f);
@@ -193,7 +193,7 @@ Serial.println("═════════════════════�
 Serial.println();
     }
 
-    // UDP her zaman gönderilir, ekran yavaşlamasından etkilenmez
+    // UDP her zaman gönderilir ekran yavaşlamasından etkilenmez
     if (WiFi.status() == WL_CONNECTED) {
         char buf[256];
         int pos = 0;
@@ -263,7 +263,7 @@ void LnnBeyinGorevi(void * parameter) {
 
         switch (guncel_durum) {
             case STATE_NAVIGATE:
-            // Sadece 35 cm yakınına engel gelirse kaçışa başla!
+            
             if (anlik_sag < 50 || anlik_sol < 50 || anlik_orta < 50) {
                  guncel_durum = STATE_EVADE;
                  beyin->noronlar[3].durum = 0.0f;
@@ -278,7 +278,7 @@ void LnnBeyinGorevi(void * parameter) {
                  beyin->noronlar[3].x = (n_sag * 30.0f) - (n_sol * 20.0f) - (n_orta * 15.0f);;
                  beyin->noronlar[4].x = (n_sol * 30.0f) - (n_sag * 20.0f) - (n_orta * 15.0f);;
 
-                 // Engel 35 cm'de0n uzağa gittiğinde devriyeye (düz gitmeye) dön
+                 
                  if (anlik_sol >= 50 && anlik_orta >= 50 && anlik_sag >= 50) {
                      guncel_durum = STATE_NAVIGATE;
                  }
@@ -288,11 +288,11 @@ void LnnBeyinGorevi(void * parameter) {
         Lnn_step(beyin, dt);
 
         if (guncel_durum == STATE_NAVIGATE) {
-            // HIZI GERİ 1.0 YAPTIK! Motorlar sürtünmeye takılıp spin atmayacak.
+           
             m_sol = 1.0f;
             m_sag = 1.0f;
         } else {
-            // Dışarıdan müdahale yok, sadece LNN'in kendi kararı
+            
             m_sol = beyin->noronlar[3].y;
             m_sag = beyin->noronlar[4].y;
 
@@ -303,7 +303,7 @@ void LnnBeyinGorevi(void * parameter) {
             if (m_sag < -0.05f && m_sag > -0.6f) m_sag = -0.6f;
         }
 
-        // Güçleri -1 ile +1 arasına kilitle
+        
         if (m_sol >  1.0f) m_sol =  1.0f;
         if (m_sol < -1.0f) m_sol = -1.0f;
         if (m_sag >  1.0f) m_sag =  1.0f;
@@ -341,7 +341,7 @@ void setup() {
     Wire.begin(21, 19);
     Wire.setClock(400000);
 
-    // MPU BAŞLATMA BLOĞU TAMAMEN KALDIRILDI
+  
 
 
     WiFi.begin(ssid, password);
@@ -386,7 +386,7 @@ void setup() {
     Lnn_Yapilandir(beyin, 5, 6, 0.2f, 1.0f,  0.0f);
 
 
-// Hemen ardından test hareketi:
+
 Serial.println("Servo test basliyor...");
 servoSag.write(0);
 servoSol.write(180);
